@@ -4,8 +4,7 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "type-check": "tsc",
-    "postinstall": "prisma generate"
+    "type-check": "tsc"
   },
   "dependencies": {
     "@chakra-ui/react": "^2.8.1",
