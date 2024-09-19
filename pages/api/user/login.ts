@@ -18,6 +18,7 @@ async function loginUserHandler(req:NextApiRequest, res:NextApiResponse) {
     return res.status(400).json({ message: "invalid inputs" });
   }
   try {
+    await prisma.$connect()
     const user = await prisma.user.findUnique({
       where: { email: email },
       select: {
