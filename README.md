@@ -1,47 +1,128 @@
-# TypeScript Next.js example
+# Bookstore Application
 
-This is a really simple project that shows the usage of Next.js with TypeScript.
+This is a full-featured bookstore application built using modern web technologies such as **Next.js**, **Prisma**, **TypeScript**, **Tailwind CSS**, and **Chakra UI**. The application allows users to purchase and borrow books, and chat with support. It integrates **Stripe** for seamless payment processing and uses **PostgreSQL** for the database. The application also features an admin interface for managing books, generating reports, and monitoring user interactions.
 
-## Deploy your own
+## Features
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or preview live with [StackBlitz](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-typescript)
+### User Features
+- **Browse Books**: Users can browse books and view detailed information.
+- **Purchase Books**: Stripe integration allows users to securely buy books.
+- **Borrow Books**: Users can borrow books and view their borrowing history.
+- **Chat Support**: A chat option is available for users to contact each other.
+- **View Purchase/Borrow History**: Users can track their purchases and borrowings in their profile.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-typescript&project-name=with-typescript&repository-name=with-typescript)
+### Admin Features
+- **Book Management**: Admins can post new books, approve book listings, and update or remove books.
+- **Reports Generation**: Admins can generate reports to track user interactions and transactions.
+- **Approve Borrow Requests**: Admins can manage book borrow requests and approve/deny them.
+- **User Management**: Admins can monitor user activity and interactions with the platform.
 
-## How to use it?
+## Tech Stack
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
+### Frontend
+- **Next.js**: A React framework for server-rendered applications.
+- **TypeScript**: Ensures type safety throughout the application.
+- **Tailwind CSS**: A utility-first CSS framework for designing the UI.
+- **Chakra UI**: A component library for building a modern, accessible design system.
 
-```bash
-npx create-next-app --example with-typescript with-typescript-app
-```
+### Backend
+- **Prisma**: An ORM used for interacting with the PostgreSQL database.
+- **Stripe**: Used for handling payments securely.
+- **PostgreSQL**: A powerful, open-source relational database used to store book data, user information, purchases, borrow history, etc.
 
-```bash
-yarn create next-app --example with-typescript with-typescript-app
-```
+### Real-time Communication
+- **Chat Feature**: Provides a support channel for users to communicate with support staff.
 
-```bash
-pnpm create next-app --example with-typescript with-typescript-app
-```
+## Setup and Installation
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+### Prerequisites
+- **Node.js**: Ensure you have Node.js installed (version 16+).
+- **PostgreSQL**: Make sure PostgreSQL is installed and running on your system.
+- **Stripe Account**: You'll need a Stripe account for payment processing.
 
-## Notes
+### Steps
 
-This example shows how to integrate the TypeScript type system into Next.js. Since TypeScript is supported out of the box with Next.js, all we have to do is to install TypeScript.
+1. **Clone the repository**:
+    ```bash
+    git clone https://github.com/yourusername/bookstore-app.git
+    cd bookstore-app
+    ```
 
-```
-npm install --save-dev typescript
-```
+2. **Install dependencies**:
+    ```bash
+    npm install
+    ```
 
-To enable TypeScript's features, we install the type declarations for React and Node.
+3. **Set up environment variables**:
+    Create a `.env` file in the root directory and add the following variables:
+    ```bash
+    DATABASE_URL=postgresql://USER:PASSWORD@localhost:5432/DATABASE_NAME
+    NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
+    STRIPE_SECRET_KEY=your_stripe_secret_key
+    ```
 
-```
-npm install --save-dev @types/react @types/react-dom @types/node
-```
+4. **Run database migrations**:
+    Use Prisma to migrate the database schema:
+    ```bash
+    npx prisma migrate dev
+    ```
 
-When we run `next dev` the next time, Next.js will start looking for any `.ts` or `.tsx` files in our project and builds it. It even automatically creates a `tsconfig.json` file for our project with the recommended settings.
+5. **Run the application**:
+    ```bash
+    npm run dev
+    ```
+    The app will be available at `http://localhost:3000`.
 
-Next.js has built-in TypeScript declarations, so we'll get autocompletion for Next.js' modules straight away.
+### Admin Setup
+To access the admin functionalities, you can set up specific user roles in the database. Once a user is marked as an admin, they will have access to the admin panel.
 
-A `type-check` script is also added to `package.json`, which runs TypeScript's `tsc` CLI in `noEmit` mode to run type-checking separately. You can then include this, for example, in your `test` scripts.
+## Database Schema
+
+The PostgreSQL database schema is managed via Prisma and includes the following key entities:
+- **User**: Stores user data like username, email, and role (user/admin).
+- **Book**: Contains information about the book (title, author, price, availability).
+- **StripePayments**: Stores payment details.
+- **BorrowedBooks**: Stores borrowing history.
+- **Reports**: Generated reports for admin review.
+
+## Stripe Integration
+
+- Stripe is used to handle book purchases. Payments are processed securely, and transaction data is stored in the `StripePayments` table.
+- Make sure to add your Stripe keys to the environment variables and configure the `Stripe` instance in your application.
+
+## Chat Functionality
+
+The chat functionality allows users to engage in real-time conversations with support staff or administrators. This feature is built using **web sockets** or **Firebase**, and it is accessible from the user dashboard.
+
+## Admin Panel
+
+Admins can:
+- Approve or reject new book listings.
+- View reports of user interactions and transactions.
+- Manage book borrow requests.
+- Generate analytics reports.
+
+The admin interface is accessible through a protected route and only visible to users with admin privileges.
+
+## Borrowing Books
+
+Users have the option to borrow books for a specified period, and admins can approve or deny these borrow requests. The borrowing process is tracked in the system, and users can view their borrowing history under their profile.
+
+## Reports
+
+Admins can generate reports detailing user activity such as:
+- Total purchases
+- Books borrowed
+- User interactions with the site
+
+These reports can be exported and viewed by users and admins alike.
+
+## Styles and Theming
+
+The application uses **Tailwind CSS** for utility-based styling and **Chakra UI** for reusable and accessible components. Custom theming is also supported via Chakra UI's theme configuration.
+
+## Future Enhancements
+
+- **Wishlist Feature**: Users can save books to a wishlist for future purchases.
+- **User Reviews and Ratings**: Allow users to leave reviews and rate books.
+- **Recommendation System**: Suggest books
