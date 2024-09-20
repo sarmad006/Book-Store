@@ -16,23 +16,29 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
             password: credentials.password,
           };
           console.log(userCredentials);
-          const res = await fetch(
-            `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/user/login`,
-            {
-              method: "POST",
-              body: JSON.stringify(userCredentials),
-              headers: {
-                "Content-Type": "application/json",
-              },
+          try{
+            const res = await fetch(
+              `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/user/login`,
+              {
+                method: "POST",
+                body: JSON.stringify(userCredentials),
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              }
+            );
+            const user = await res.json();
+            console.log("user",user)
+            if (Object.keys(user).length > 0 && !Object.hasOwn(user,"status") ) {
+              return user.user;
+            } else {
+              throw new Error(JSON.stringify(user.message));
             }
-          );
-          const user = await res.json();
-          console.log("user",user)
-          if (Object.keys(user).length > 0 && !Object.hasOwn(user,"status") ) {
-            return user.user;
-          } else {
-            throw new Error(JSON.stringify(user.message));
           }
+          catch(error){
+            console.log("nextAuth error",error)
+          }
+        
         },
         credentials: undefined,
       }),
