@@ -6,7 +6,7 @@ const Footer = () => {
         <>
             <div className="grid md:grid-cols-5 bg-skin-darkBlue text-white  p-10 grid-cols-1 mt-20 border-b-2 border-gray-200">
                 <div className=" text-center m-auto">
-                    <img className="w-56 m-auto" src="/Logo.png" alt="logo" />
+                    <img className="w-56 m-auto" src="/logo.png" alt="logo" />
                     <p className="hidden lg:block">Make your academic life easier with Qthrift Items</p>
                 </div>
                 <div className=" m-auto text-center md:text-left my-7">

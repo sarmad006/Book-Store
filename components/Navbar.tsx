@@ -79,7 +79,7 @@ const Navbar = (props) => {
             <Link href="/">
               <Avatar
                 className="flex justify-start h-20 w-auto ml-5"
-                src="/Logo.png"
+                src="/logo.png"
                 onClick={() => {
                   setProgress(100);
                 }}
@@ -554,7 +554,7 @@ const Navbar = (props) => {
             <Link href="/">
               <Avatar
                 className="flex justify-start h-20 w-auto"
-                src="/Logo.png"
+                src="/logo.png"
                 onClick={() => {
                   setProgress(40);
                 }}
