@@ -18,7 +18,6 @@ async function loginUserHandler(req:NextApiRequest, res:NextApiResponse) {
     return res.status(400).json({ message: "invalid inputs" });
   }
   try {
-    await prisma.$connect()
     const user = await prisma.user.findUnique({
       where: { email: email },
       select: {
@@ -32,6 +31,7 @@ async function loginUserHandler(req:NextApiRequest, res:NextApiResponse) {
     if(!user){
       return res.status(500).json({status:500,message:"Not a valid user"})
     }
+    console.log("user",user)
     if (user && user.password === hashPassword(password)) {
       // exclude password from json response
       return res.status(200).json({user:exclude(user, ["password"])});
