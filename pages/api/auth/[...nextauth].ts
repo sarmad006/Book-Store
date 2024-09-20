@@ -27,6 +27,12 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
                 },
               }
             );
+            console.log("checking URL",process.env.NEXT_PUBLIC_NEXTAUTH_URL);
+            if (!res.ok) {
+              const errorText = await res.text(); // Log the error text for debugging
+              console.error("Error response:", errorText);
+              throw new Error("Login failed: " + errorText);
+            }  
             const user = await res.json();
             console.log("user",user)
             if (Object.keys(user).length > 0 && !Object.hasOwn(user,"status") ) {
