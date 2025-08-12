@@ -56,17 +56,19 @@ const Cart = () => {
     }
   };
 
-  const total =
-    cartItems.size > 0
-      ? Array.from(cartItems).reduce(
-          (acc: number, [key, value]: [string, CartItemType]) => {
-            return (
-              acc + (value.detail.price != '' ? parseInt(value.detail.price.toString()) : 0) * value.quantity
-            );
-          },
-          0
-        )
-      : 0;
+  const total: number =
+  cartItems.size > 0
+    ? Array.from(cartItems).reduce<number>(
+        (acc, [key, value]) =>
+          acc +
+          (value.detail.price !== ''
+            ? parseInt(value.detail.price.toString())
+            : 0) *
+            value.quantity,
+        0
+      )
+    : 0;
+
   const handleCart = (
     e: React.SyntheticEvent<HTMLButtonElement>,
     key,
