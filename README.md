@@ -44,7 +44,7 @@ This is a full-featured bookstore application built using modern web technologie
 
 1. **Clone the repository**:
     ```bash
-    git clone https://github.com/yourusername/bookstore-app.git
+    git clone (https://github.com/sarmad006/Book-Store.git)
     cd bookstore-app
     ```
 
